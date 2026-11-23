@@ -1,3 +1,5 @@
+using MVCSe1.Middleware;
+
 namespace MVCSe1
 {
     public class Program
@@ -10,7 +12,7 @@ namespace MVCSe1
             builder.Services.AddControllersWithViews();
 
             var app = builder.Build();
-
+            app.UseMiddleware<RequestTimeMiddleware>();
             // Configure the HTTP request pipeline.
             if (!app.Environment.IsDevelopment())
             {
@@ -25,6 +27,12 @@ namespace MVCSe1
             app.UseAuthorization();
 
             app.MapStaticAssets();
+            app.MapControllerRoute(
+                name:"Shop",
+                pattern: "{controller=Shop}/{action=Index}/{id?})",
+                defaults:new { controller = "Shop", action = "Index" }
+                );
+
             app.MapControllerRoute(
                 name: "default",
                 pattern: "{controller=Home}/{action=Index}/{id?}")

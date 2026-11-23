@@ -34,5 +34,22 @@ namespace MVCSe1.Controllers
         {
             return new RedirectResult("https://www.google.com");
         }
+
+        public RedirectToActionResult RedirectToIndex()
+        {
+            return new RedirectToActionResult("RedirectToGoogle", "Products", null);
+        }
+
+        public IActionResult Test(int id)
+        {
+            if (id == 1)
+                return View();
+            else if (id == 2)
+                return Json(new Products() { Id = 1, Name = "Iphone 15 Pro Max", Price = 20 });
+            else if (id == 3)
+                return Redirect("https://www.facebook.com");
+            else
+                return View();
+        }
     }
 }
